@@ -28,13 +28,12 @@ def main(args):
         trainer = Trainer(
             fast_dev_run=bool(args.dev),
             logger=logger if not bool(args.dev + args.test_phase) else None,
-            accelerator="gpu",
+            accelerator="auto",
             devices=1,
             deterministic=True,
-            weights_summary=None,
             log_every_n_steps=1,
             max_epochs=args.max_epochs,
-            checkpoint_callback=checkpoint,
+            callbacks=[checkpoint],
             precision=args.precision,
         )
 
@@ -79,5 +78,5 @@ if __name__ == "__main__":
     parser.add_argument("--learning_rate", type=float, default=1e-2)
     parser.add_argument("--weight_decay", type=float, default=1e-2)
 
-    args = parser.parse_args()
+    args = parser.parse_args(args=[])
     main(args)
