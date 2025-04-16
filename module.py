@@ -30,7 +30,7 @@ all_classifiers = {
 class CIFAR10Module(pl.LightningModule):
     def __init__(self, hparams):
         super().__init__()
-        self.hparams = hparams
+        self.save_hyperparameters(hparams)
 
         self.criterion = torch.nn.CrossEntropyLoss()
         self.accuracy = Accuracy()
